@@ -1,6 +1,6 @@
-package com.example.demo.repositories; // 🟢 FIX: Matches folder name 'repositories'
+package com.example.demo.repository; // 🟢 FIX: Matches folder name 'repositories'
 
-import com.example.demo.entities.HistoryEntity; // 🟢 FIX: Imports from 'entities'
+import com.example.demo.model.HistoryEntity; // 🟢 FIX: Imports from 'entities'
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

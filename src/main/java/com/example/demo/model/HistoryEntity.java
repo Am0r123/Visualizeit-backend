@@ -1,4 +1,4 @@
-package com.example.demo.entities; // 🟢 FIX: Matches folder name 'entities'
+package com.example.demo.model; // 🟢 FIX: Matches folder name 'entities'
 
 import jakarta.persistence.*; // 🟢 FIX: Changed javax to jakarta for Spring Boot 3+
 import java.time.LocalDateTime;

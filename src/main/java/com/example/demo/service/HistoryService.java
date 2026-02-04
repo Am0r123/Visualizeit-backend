@@ -1,7 +1,7 @@
 package com.example.demo.service;
 
-import com.example.demo.entities.HistoryEntity;     // 🟢 FIX: Imports from 'entities'
-import com.example.demo.repositories.HistoryRepository; // 🟢 FIX: Imports from 'repositories'
+import com.example.demo.model.HistoryEntity;     // 🟢 FIX: Imports from 'entities'
+import com.example.demo.repository.HistoryRepository; // 🟢 FIX: Imports from 'repositories'
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
