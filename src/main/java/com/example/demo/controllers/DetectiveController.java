@@ -10,8 +10,8 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/detective") // 🟢 FIX: Ensure this is "/detective", not "/translate"
-@CrossOrigin(origins = "*")
+@RequestMapping("/api/detective") // Ensure this matches your frontend URL
+@CrossOrigin(origins = "http://localhost:4200")
 public class DetectiveController {
 
     @Autowired
@@ -20,11 +20,12 @@ public class DetectiveController {
     // 1. Generate a new case
     @PostMapping("/generate")
     public ResponseEntity<BugChallenge> generateCase(@RequestBody Map<String, String> payload) {
-        String topic = payload.getOrDefault("topic", "Random");
+        // Extract parameters from frontend
+        String dataStructure = payload.getOrDefault("dataStructure", "Array");
         String difficulty = payload.getOrDefault("difficulty", "Medium");
         String language = payload.getOrDefault("language", "Java");
 
-        BugChallenge challenge = detectiveService.generateChallenge(topic, difficulty, language);
+        BugChallenge challenge = detectiveService.generateChallenge(dataStructure, difficulty, language);
         return ResponseEntity.ok(challenge);
     }
 
@@ -37,7 +38,7 @@ public class DetectiveController {
         boolean isCorrect = detectiveService.checkSolution(id, userCode);
 
         if (isCorrect) {
-            return ResponseEntity.ok(Map.of("status", "success", "message", "🎉 Correct! Bug fixed."));
+            return ResponseEntity.ok(Map.of("status", "success", "message", "🎉 Correct! The bug is fixed."));
         } else {
             return ResponseEntity.ok(Map.of("status", "fail", "message", "❌ Incorrect. Try again!"));
         }
