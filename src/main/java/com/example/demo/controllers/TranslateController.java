@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/translate") // 🟢 This controller owns "/translate"
-@CrossOrigin(origins = "*")
+@RequestMapping("/translate")
+@CrossOrigin(origins = "*") // Allows your Angular app to call this
 public class TranslateController {
 
     @Autowired
@@ -17,19 +17,23 @@ public class TranslateController {
 
     @PostMapping
     public ResponseEntity<Map<String, Object>> translate(@RequestBody Map<String, String> payload) {
+        // 1. Extract Data
         String code = payload.get("code");
         String from = payload.getOrDefault("from", "detect");
         String to = payload.getOrDefault("to", "Python");
 
-        if (code == null || code.isBlank()) {
+        // 2. Validate Input
+        if (code == null || code.trim().isEmpty()) {
             return new ResponseEntity<>(
                 Map.of("status", "error", "message", "Source code cannot be empty."), 
                 HttpStatus.BAD_REQUEST
             );
         }
 
+        // 3. Call Service
         String translatedCode = translatorService.translateCode(from, to, code);
 
+        // 4. Handle Service Errors
         if (translatedCode.startsWith("Error")) {
             return new ResponseEntity<>(
                 Map.of("status", "error", "message", translatedCode), 
@@ -37,6 +41,7 @@ public class TranslateController {
             );
         }
 
+        // 5. Return Success Response
         return new ResponseEntity<>(
             Map.of(
                 "status", "success",
